@@ -1,7 +1,8 @@
 package com.mycart.carspiecesseller.services;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -33,7 +34,7 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public Set<User> findByUsername (String username){
+	public Optional<User> findByUsername (String username){
 		
 		return userRepository.findByUsername(username);
 	}
@@ -44,6 +45,23 @@ public class UserServiceImpl implements UserService{
 		
 		 userRepository.updateUserRole(username, newRole);
 		
+	}
+	
+	@Override
+	public User saveClient(User user) {
+		
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setRole(Role.CLIENT);
+		user.setCreateTime(LocalDate.now());
+		
+		return userRepository.save(user);
+		
+	}
+	
+	@Override
+	public List<User> findAllClients() {
+		
+		return  userRepository.findAllClients(Role.CLIENT);
 	}
 
 }

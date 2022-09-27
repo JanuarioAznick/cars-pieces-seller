@@ -9,12 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 public class CarsPiecesSellerApplication {
 	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		
-		return new BCryptPasswordEncoder();
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(CarsPiecesSellerApplication.class, args);
 	}
