@@ -3,6 +3,7 @@ package com.mycart.carspiecesseller.services;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.mycart.carspiecesseller.dto.UserDTO;
 import com.mycart.carspiecesseller.entities.User;
 import com.mycart.carspiecesseller.entities.enums.Role;
 import com.mycart.carspiecesseller.repositories.UserRepository;
@@ -59,9 +61,16 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public List<User> findAllClients() {
+	public List<UserDTO> findAllClients() {
 		
-		return  userRepository.findAllClients(Role.CLIENT);
+		  List<User> user = userRepository.findAllClients(Role.CLIENT);
+		  return user.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
+	}
+	
+	@Override
+	public Optional<User> findUserById(Long id) {
+		
+		return userRepository.findById(id);
 	}
 
 }

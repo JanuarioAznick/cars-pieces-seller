@@ -1,15 +1,19 @@
 package com.mycart.carspiecesseller.entities;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mycart.carspiecesseller.entities.enums.Gender;
 import com.mycart.carspiecesseller.entities.enums.Role;
 
@@ -50,6 +54,10 @@ public class User {
 	
 	@Column(nullable = false)
 	private Role role;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "userId")
+	private Set<Order> orders = new HashSet<>();
 	
 	@Transient
 	private String token;

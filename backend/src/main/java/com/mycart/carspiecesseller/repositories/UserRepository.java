@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.mycart.carspiecesseller.dto.UserDTO;
 import com.mycart.carspiecesseller.entities.User;
 import com.mycart.carspiecesseller.entities.enums.Role;
 
@@ -22,6 +23,6 @@ public interface UserRepository extends JpaRepository<User, Long>{
 //	@Query("SELECT a FROM User a WHERE a.role = :role")
 //	List<User> findAllAdmins(@Param("role") Role role);	
 
-	@Query("SELECT u FROM User u WHERE u.role = :role")
+	@Query(" SELECT u FROM User u WHERE u.role = :role ")
 	List<User> findAllClients(@Param("role") Role role);
 }

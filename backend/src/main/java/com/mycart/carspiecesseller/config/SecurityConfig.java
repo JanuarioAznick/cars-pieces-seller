@@ -39,6 +39,9 @@ public class SecurityConfig {
 			.antMatchers("/api/user/**").permitAll()
 			.antMatchers("/api/client/sign-up").permitAll()//first allowed endpoints for all user roles
 			.antMatchers("/api/client/findall").hasRole(Role.CLIENT.name())
+			.antMatchers("/api/categories/**").hasRole(Role.CLIENT.name())
+			.antMatchers("/api/product/**").hasRole(Role.CLIENT.name())
+			.antMatchers("/api/orders/**").hasAnyRole(Role.ADMIN.name(), Role.CLIENT.name())
 		 .anyRequest().authenticated();
 		
 		 http.addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
